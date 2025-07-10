@@ -40,11 +40,14 @@ class Curlify:
         Returns:
             str: string represents curl command
         """
-        quote = f"curl -X {self.req.method} -H {self.headers()} -d '{self.body_decode()}' {self.req.url}"
-
+        quote = f"curl -X {self.req.method} -H {self.headers()}"
+        body = self.body()
+        if body:
+            quote += f" -d '{body}'"
         if self.compressed:
             quote += " --compressed"
         if not self.verify:
             quote += " --insecure"
+        quote += f" '{self.req.url}'"
 
         return quote
