@@ -41,7 +41,7 @@ class Curlify:
             str: string represents curl command
         """
         quote = f"curl -X {self.req.method} -H {self.headers()}"
-        body = self.body()
+        body = self.body_decode()
         if body:
             quote += f" -d '{body}'"
         if self.compressed:
